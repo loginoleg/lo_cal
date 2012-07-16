@@ -1,5 +1,5 @@
 /*
- * Loginov Oleg (loginoleg@gmil.com)
+ * Loginov Oleg (loginoleg@gmail.com)
  *
  * COMPILE
  * OSX compile: 	gcc ./lo_cal.c -o lo_cal -framework CoreFoundation [-DUSECOLORS]
@@ -35,9 +35,9 @@
 #define LEFT_DAYSELECT 	'['
 #define RIGHT_DAYSELECT ']'
 
-#define ERR_USAGE 				"for usage lo_cal month.year (example: lo_cal 02.2014 for feb 2014)"
-#define ERR_INCORRECT_MONTH 	"incorrect format of the month"
-#define ERR_INCORRECT_YEAR 		"incorrect format of the year"
+#define ERR_USAGE				"for usage lo_cal month.year (example: lo_cal 02.2014 for feb 2014)"
+#define ERR_INCORRECT_MONTH		"incorrect format of the month"
+#define ERR_INCORRECT_YEAR		"incorrect format of the year"
 
 #define CELL_SIZE 4 
 #define DAYS_A_WEEK 7
