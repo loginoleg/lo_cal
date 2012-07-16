@@ -127,6 +127,17 @@ main(int argc, char *argv[])
 	exit(EXIT_SUCCESS);
 }
 
+
+/* quits the program and print error */
+void
+error_exit(char *error)
+{
+	// printf("Error: %s\n", error);
+	fprintf(stderr, "Error: %s\n", error);
+	exit(EXIT_FAILURE);
+}
+
+
 int 
 get_first_day_of_week(void)
 {
@@ -136,7 +147,7 @@ get_first_day_of_week(void)
 		CFCalendarRef currentCalendar = CFCalendarCopyCurrent();
 		first_day_of_week = CFCalendarGetFirstWeekday(currentCalendar);
 		CFRelease(currentCalendar);
-		if (first_day_of_week && first_day_of_week >= 1 && first_day_of_week <= 7)
+		if (first_day_of_week && first_day_of_week >= 1 && first_day_of_week <= 2)
 		{
 			return first_day_of_week;
 		}
@@ -145,7 +156,7 @@ get_first_day_of_week(void)
 	// for linux
 	#ifdef __linux__
 	    const char *const first_day_of_week = nl_langinfo(_NL_TIME_FIRST_WORKDAY);
-	    if (first_day_of_week && *first_day_of_week >= 1 && *first_day_of_week <= 7)
+	    if (first_day_of_week && *first_day_of_week >= 1 && *first_day_of_week <= 2)
 	    {
 	        return (int)*first_day_of_week;
 	    }
@@ -166,18 +177,9 @@ wkday(const int d)
     case 4: return nl_langinfo(ABDAY_4); 
     case 5: return nl_langinfo(ABDAY_5); 
     case 6: return nl_langinfo(ABDAY_6); 
-    case 7: return nl_langinfo(ABDAY_7); 
+    case 7: return nl_langinfo(ABDAY_7); /* Sat */
     default: return "";
     }
-}
-
-/* quits the program and print error */
-void
-error_exit(char *error)
-{
-	// printf("Error: %s\n", error);
-	fprintf(stderr, "Error: %s\n", error);
-	exit(EXIT_FAILURE);
 }
 
 /* print the string of days of the week to stdout */
@@ -193,14 +195,18 @@ print_header(int first_day_of_week)
 	len = strlen(wkd);
 
 	/* print header of firts day */
-    if (first_day_of_week == 1)
+    if (first_day_of_week == 1) /* Mon */
     {
  		printf((len / 2 % 2 == 0) ? " %s%s%s  " : " %s%s%s ", RED, wkd, NC);
 	}
-	else if (first_day_of_week == 2)
+	else if (first_day_of_week == 2) /* Sun */
 	{
 		printf((len / 2 % 2 == 0) ? " %s  " : " %s ", wkd);
 	}
+	// else if (first_day_of_week == 7) /* Sat */
+	// {
+	// 	printf((len / 2 % 2 == 0) ? " %s%s%s  " : " %s%s%s ", RED, wkd, NC);
+	// }
 
 	/* print header of 2-5 days */
     for (i = first_day_of_week + 1; i < first_day_of_week + 5; i++)
